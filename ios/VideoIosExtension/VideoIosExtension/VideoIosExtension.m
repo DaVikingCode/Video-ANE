@@ -54,6 +54,8 @@ DEFINE_ANE_FUNCTION(init) {
     
     [rootView addSubview:[[[VideoIosExtension sharedInstance] player] view]];
     
+    [[[VideoIosExtension sharedInstance] player] view].userInteractionEnabled = NO;
+    
     /*[player.view setFrame: rootView.bounds];
     [rootView addSubview:[player view]];
     player.view.frame = rootView.frame;*/
