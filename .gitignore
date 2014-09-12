@@ -1,0 +1,7 @@
+.project
+.settings
+*.ipa
+tmp
+*.app
+bin/VideoANE.app*
+*.swf

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<platform xmlns="http://ns.adobe.com/air/extension/3.5">
+
+	<linkerOptions>
+
+		<option>-ios_version_min 6.0</option>
+		
+		<option>-framework MediaPlayer</option>
+		
+	</linkerOptions>
+
+</platform>
