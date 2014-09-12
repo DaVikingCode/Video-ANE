@@ -11,6 +11,9 @@ package com.davikingcode.nativeExtensions.video {
 
 		public var extensionContext:ExtensionContext;
 
+		private var _x:Number;
+		private var _y:Number;
+
 		public static function getInstance():NativeVideo {
 			return _instance;
 		}
@@ -26,9 +29,36 @@ package com.davikingcode.nativeExtensions.video {
 
 		}
 
-		public function init():void {
+		public function init(url:String, type:String, posX:Number = 0, posY:Number = 0, width:Number = 480, height:Number = 320):void {
 
-			extensionContext.call("init");
+			_x = posX;
+			_y = posY;
+
+			extensionContext.call("init", url, type, _x, _y, width, height);
+		}
+
+		public function get x():Number {
+
+			return _x;
+		}
+
+		public function set x(value:Number):void {
+
+			_x = value;
+
+			extensionContext.call("changePosition", _x, _y);
+		}
+
+		public function get y():Number {
+
+			return _y;
+		}
+
+		public function set y(value:Number):void {
+
+			_y = value;
+
+			extensionContext.call("changePosition", _x, _y);
 		}
 
 	}

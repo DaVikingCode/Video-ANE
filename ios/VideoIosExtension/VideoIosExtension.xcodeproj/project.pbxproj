@@ -13,6 +13,7 @@
 		B0282B2A19C32DAC00BB9D87 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0282B2919C32DAC00BB9D87 /* CoreGraphics.framework */; };
 		B0282B2C19C32DB500BB9D87 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0282B2B19C32DB500BB9D87 /* UIKit.framework */; };
 		B0282B2E19C32DBC00BB9D87 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0282B2D19C32DBC00BB9D87 /* MobileCoreServices.framework */; };
+		B0282B3519C3AD2200BB9D87 /* NativeVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0282B3319C3AD2200BB9D87 /* NativeVideo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,7 +43,8 @@
 		B0282B2919C32DAC00BB9D87 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B0282B2B19C32DB500BB9D87 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B0282B2D19C32DBC00BB9D87 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		B0282B2F19C33F8D00BB9D87 /* VideoIosExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoIosExtension.h; sourceTree = "<group>"; };
+		B0282B3319C3AD2200BB9D87 /* NativeVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeVideo.m; sourceTree = "<group>"; };
+		B0282B3419C3AD2200BB9D87 /* NativeVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeVideo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +99,9 @@
 			isa = PBXGroup;
 			children = (
 				B0282A4A19C2F47800BB9D87 /* FlashRuntimeExtensions.h */,
-				B0282B2F19C33F8D00BB9D87 /* VideoIosExtension.h */,
 				B0282A2B19C2F44200BB9D87 /* VideoIosExtension.m */,
+				B0282B3419C3AD2200BB9D87 /* NativeVideo.h */,
+				B0282B3319C3AD2200BB9D87 /* NativeVideo.m */,
 				B0282A2719C2F44200BB9D87 /* Supporting Files */,
 			);
 			path = VideoIosExtension;
@@ -181,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0282B3519C3AD2200BB9D87 /* NativeVideo.m in Sources */,
 				B0282A2C19C2F44200BB9D87 /* VideoIosExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +314,7 @@
 				B0282A4619C2F44200BB9D87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

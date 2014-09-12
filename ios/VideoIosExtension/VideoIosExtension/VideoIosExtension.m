@@ -6,66 +6,55 @@
 //  Copyright (c) 2014 DaVikingCode. All rights reserved.
 //
 
-#import "VideoIosExtension.h"
+#import "FlashRuntimeExtensions.h"
+#import "NativeVideo.h"
 
 #define DEFINE_ANE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 #define MAP_FUNCTION(fn, data) { (const uint8_t*)(#fn), (data), &(fn) }
 
-@implementation VideoIosExtension
-
-static VideoIosExtension *sharedInstance = nil;
-
-+ (VideoIosExtension *) sharedInstance {
-    
-    if (sharedInstance == nil) {
-        sharedInstance = [[super allocWithZone:NULL] init];
-        
-        sharedInstance.player = [[MPMoviePlayerController alloc] init];
-    }
-    
-    return sharedInstance;
-}
-
-+ (id) allocWithZone:(NSZone *)zone {
-    return [VideoIosExtension sharedInstance];
-}
-
-- (id) copy {
-    return self;
-}
-
-@end
+NativeVideo *nativeVideo;
 
 DEFINE_ANE_FUNCTION(init) {
     
+    uint32_t string1Length;
+    const uint8_t *url;
+    
+    uint32_t string2Length;
+    const uint8_t *type;
+    
+    double posX;
+    double posY;
+    
+    double width;
+    double height;
+    
+    FREGetObjectAsUTF8(argv[0], &string1Length, &url);
+    FREGetObjectAsUTF8(argv[1], &string2Length, &type);
+    FREGetObjectAsDouble(argv[2], &posX);
+    FREGetObjectAsDouble(argv[3], &posY);
+    FREGetObjectAsDouble(argv[4], &width);
+    FREGetObjectAsDouble(argv[5], &height);
+    
     UIWindow *rootView = [[[UIApplication sharedApplication] delegate] window];
     
-    NSString *url = [[NSBundle mainBundle] pathForResource:@"trailer" ofType:@"mov"];
-    
-    [[[VideoIosExtension sharedInstance] player] setContentURL:[NSURL fileURLWithPath:url]];
-    
-    [[[VideoIosExtension sharedInstance] player].view setFrame:CGRectMake(0, 0, 320, 320)];
-    
-    [[VideoIosExtension sharedInstance] player].repeatMode = MPMovieRepeatModeOne;
-    
-    [[[VideoIosExtension sharedInstance] player] setControlStyle:MPMovieControlStyleNone];
-    
-    [[[VideoIosExtension sharedInstance] player] play];
-    
-    [rootView addSubview:[[[VideoIosExtension sharedInstance] player] view]];
-    
-    [[[VideoIosExtension sharedInstance] player] view].userInteractionEnabled = NO;
-    
-    /*[player.view setFrame: rootView.bounds];
-    [rootView addSubview:[player view]];
-    player.view.frame = rootView.frame;*/
+    nativeVideo = [[NativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]];
+    [rootView addSubview:nativeVideo];
     
     NSLog(@"%@", NSStringFromCGRect(rootView.frame));
     NSLog(@"%@", NSStringFromCGRect(rootView.bounds));
     
-    /*player.initialPlaybackTime = -1.0;
-    [player prepareToPlay];
-    [player play];*/
+    return NULL;
+}
+
+DEFINE_ANE_FUNCTION(changePosition) {
+    
+    double posX;
+    double posY;
+    
+    FREGetObjectAsDouble(argv[0], &posX);
+    FREGetObjectAsDouble(argv[1], &posY);
+    
+    [nativeVideo changePositionX:posX andY:posY];
     
     return NULL;
 }
@@ -74,7 +63,8 @@ DEFINE_ANE_FUNCTION(init) {
 void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
     
     static FRENamedFunction functionMap[] = {
-        MAP_FUNCTION(init, NULL )
+        MAP_FUNCTION(init, NULL ),
+        MAP_FUNCTION(changePosition, NULL )
     };
     
     *numFunctionsToSet = sizeof( functionMap ) / sizeof( FRENamedFunction );

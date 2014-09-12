@@ -1,5 +1,7 @@
 package {
 
+	import aze.motion.eaze;
+
 	import com.davikingcode.nativeExtensions.video.NativeVideo;
 
 	import flash.display.Sprite;
@@ -10,13 +12,14 @@ package {
 	 */
 	public class VideoTest extends Sprite {
 		
+		private var _video:NativeVideo;
 		private var _patch:PatchRun;
 
 		public function VideoTest() {
 
-			var video:NativeVideo = new NativeVideo();
+			_video = new NativeVideo();
 			
-			video.init();
+			_video.init("videos/trailer", "mov", 0, 0);
 			
 			_patch = new PatchRun();
 			
@@ -31,6 +34,8 @@ package {
 			
 			_patch.x = mouseX - _patch.width / 2;
 			_patch.y = mouseY - _patch.height / 2;
+			
+			eaze(_video).to(0.5, {x:mouseX, y:mouseY});
 		}
 	}
 }
