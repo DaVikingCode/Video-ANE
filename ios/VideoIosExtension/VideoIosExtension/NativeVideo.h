@@ -13,8 +13,10 @@
 
 @property (strong, nonatomic) MPMoviePlayerController *player;
 
-- (id) initWithFrame:(CGRect)frame andUrl:(NSString *) url ofType:(NSString *) type;
+- (id) initWithFrame:(CGRect)frame andUrl:(NSString *) url ofType:(NSString *) type withOrientation:(NSString *) orientation;
 
 - (void) changePositionX:(double) posX andY:(double) posY;
+
+- (void) changeOrientation:(NSString *) orientation;
 
 @end

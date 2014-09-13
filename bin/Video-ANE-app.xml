@@ -77,7 +77,6 @@
     <!-- <softKeyboardBehavior></softKeyboardBehavior> -->
     <!-- Display Resolution for the app (either "standard" or "high"). Optional, OSX-only. Default "standard" -->
     <!-- <requestedDisplayResolution></requestedDisplayResolution> -->
-    <aspectRatio>landscape</aspectRatio>
     <fullScreen>true</fullScreen>
     <autoOrients>true</autoOrients>
     <visible>true</visible>

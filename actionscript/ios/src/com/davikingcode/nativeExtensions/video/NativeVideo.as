@@ -1,8 +1,8 @@
 package com.davikingcode.nativeExtensions.video {
 
-	import flash.display.BitmapData;
+	import flash.display.Stage;
 	import flash.events.EventDispatcher;
-	import flash.events.StatusEvent;
+	import flash.events.StageOrientationEvent;
 	import flash.external.ExtensionContext;
 
 	public class NativeVideo extends EventDispatcher {
@@ -11,6 +11,7 @@ package com.davikingcode.nativeExtensions.video {
 
 		public var extensionContext:ExtensionContext;
 
+		private var _stage:Stage;
 		private var _x:Number;
 		private var _y:Number;
 
@@ -18,9 +19,12 @@ package com.davikingcode.nativeExtensions.video {
 			return _instance;
 		}
 
-		public function NativeVideo() {
+		public function NativeVideo(stage:Stage) {
 
 			_instance = this;
+			_stage = stage;
+
+			_stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, _stageOrientationChanging);
 
 			extensionContext = ExtensionContext.createExtensionContext("com.davikingcode.nativeExtensions.Video", null);
 
@@ -34,7 +38,12 @@ package com.davikingcode.nativeExtensions.video {
 			_x = posX;
 			_y = posY;
 
-			extensionContext.call("init", url, type, _x, _y, width, height);
+			extensionContext.call("init", url, type, _x, _y, width, height, _stage.orientation);
+		}
+
+		private function _stageOrientationChanging(stageOrientationEvt:StageOrientationEvent):void {
+
+			extensionContext.call("changeOrientation", stageOrientationEvt.afterOrientation);
 		}
 
 		public function get x():Number {

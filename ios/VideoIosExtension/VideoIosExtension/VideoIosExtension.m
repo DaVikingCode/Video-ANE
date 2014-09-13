@@ -28,16 +28,20 @@ DEFINE_ANE_FUNCTION(init) {
     double width;
     double height;
     
+    uint32_t string3Length;
+    const uint8_t *orientation;
+    
     FREGetObjectAsUTF8(argv[0], &string1Length, &url);
     FREGetObjectAsUTF8(argv[1], &string2Length, &type);
     FREGetObjectAsDouble(argv[2], &posX);
     FREGetObjectAsDouble(argv[3], &posY);
     FREGetObjectAsDouble(argv[4], &width);
     FREGetObjectAsDouble(argv[5], &height);
+    FREGetObjectAsUTF8(argv[6], &string3Length, &orientation);
     
     UIWindow *rootView = [[[UIApplication sharedApplication] delegate] window];
     
-    nativeVideo = [[NativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]];
+    nativeVideo = [[NativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
     [rootView addSubview:nativeVideo];
     
     NSLog(@"%@", NSStringFromCGRect(rootView.frame));
@@ -59,12 +63,25 @@ DEFINE_ANE_FUNCTION(changePosition) {
     return NULL;
 }
 
+DEFINE_ANE_FUNCTION(changeOrientation) {
+    
+    uint32_t stringLength;
+    const uint8_t *orientation;
+    
+    FREGetObjectAsUTF8(argv[0], &stringLength, &orientation);
+    
+    [nativeVideo changeOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    
+    return NULL;
+}
+
 
 void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
     
     static FRENamedFunction functionMap[] = {
         MAP_FUNCTION(init, NULL ),
-        MAP_FUNCTION(changePosition, NULL )
+        MAP_FUNCTION(changePosition, NULL ),
+        MAP_FUNCTION(changeOrientation, NULL )
     };
     
     *numFunctionsToSet = sizeof( functionMap ) / sizeof( FRENamedFunction );
