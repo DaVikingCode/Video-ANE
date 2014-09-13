@@ -13,9 +13,13 @@
 #define DEFINE_ANE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 #define MAP_FUNCTION(fn, data) { (const uint8_t*)(#fn), (data), &(fn) }
 
-MultipleNativeVideo *video1;
 
-DEFINE_ANE_FUNCTION(init) {
+NSMutableArray *videos;
+
+DEFINE_ANE_FUNCTION(addVideo) {
+    
+    if (videos == nil)
+        videos = [NSMutableArray array];
     
     uint32_t string1Length;
     const uint8_t *url;
@@ -43,30 +47,29 @@ DEFINE_ANE_FUNCTION(init) {
     UIWindow *rootView = [[[UIApplication sharedApplication] delegate] window];
     
     /*nativeVideo = [[NativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
-    [rootView addSubview:nativeVideo];
+    [rootView addSubview:nativeVideo];*/
     
-    NSLog(@"%@", NSStringFromCGRect(rootView.frame));
-    NSLog(@"%@", NSStringFromCGRect(rootView.bounds));*/
+    MultipleNativeVideo *video = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
     
-    video1 = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    [rootView addSubview:video];
     
-    [rootView addSubview:video1];
-    
-    //MultipleNativeVideo *video2 = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(0, 150, 300, 300)];
-    //[rootView addSubview:video2];
+    [videos addObject:video];
     
     return NULL;
 }
 
 DEFINE_ANE_FUNCTION(changePosition) {
     
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
     double posX;
     double posY;
     
-    FREGetObjectAsDouble(argv[0], &posX);
-    FREGetObjectAsDouble(argv[1], &posY);
+    FREGetObjectAsDouble(argv[1], &posX);
+    FREGetObjectAsDouble(argv[2], &posY);
     
-    [video1 changePositionX:posX andY:posY];
+    [[videos objectAtIndex:videoIndex] changePositionX:posX andY:posY];
     
     return NULL;
 }
@@ -78,7 +81,10 @@ DEFINE_ANE_FUNCTION(changeOrientation) {
     
     FREGetObjectAsUTF8(argv[0], &stringLength, &orientation);
     
-    [video1 changeOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    for (id object in videos) {
+        
+        [object changeOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    }
     
     return NULL;
 }
@@ -87,7 +93,7 @@ DEFINE_ANE_FUNCTION(changeOrientation) {
 void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
     
     static FRENamedFunction functionMap[] = {
-        MAP_FUNCTION(init, NULL ),
+        MAP_FUNCTION(addVideo, NULL ),
         MAP_FUNCTION(changePosition, NULL ),
         MAP_FUNCTION(changeOrientation, NULL )
     };

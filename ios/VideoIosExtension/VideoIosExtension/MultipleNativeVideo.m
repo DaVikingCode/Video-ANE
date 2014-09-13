@@ -80,9 +80,8 @@
         
     }
     
-    //CGAffineTransform cgCTM = CGAffineTransformMakeRotation((degree) * M_PI / 180);
     self.layer.transform = CATransform3DMakeRotation(degree / 180 * M_PI, 0, 0, 1);
-    NSLog(@"orientation changed");
+    
     [UIView commitAnimations];
 }
 

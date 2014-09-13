@@ -11,9 +11,9 @@ package com.davikingcode.nativeExtensions.video {
 
 		public var extensionContext:ExtensionContext;
 
+		public var videos:Array;
+
 		private var _stage:Stage;
-		private var _x:Number;
-		private var _y:Number;
 
 		public static function getInstance():NativeVideo {
 			return _instance;
@@ -24,6 +24,8 @@ package com.davikingcode.nativeExtensions.video {
 			_instance = this;
 			_stage = stage;
 
+			videos = [];
+
 			_stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, _stageOrientationChanging);
 
 			extensionContext = ExtensionContext.createExtensionContext("com.davikingcode.nativeExtensions.Video", null);
@@ -33,41 +35,16 @@ package com.davikingcode.nativeExtensions.video {
 
 		}
 
-		public function init(url:String, type:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480):void {
+		public function addVideo(url:String, type:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480):void {
 
-			_x = posX;
-			_y = posY;
+			extensionContext.call("addVideo", url, type, posX, posY, width, height, _stage.orientation);
 
-			extensionContext.call("init", url, type, _x, _y, width, height, _stage.orientation);
+			videos.push(new VideoObject(extensionContext, videos.length, posX, posY));
 		}
 
 		private function _stageOrientationChanging(stageOrientationEvt:StageOrientationEvent):void {
 
 			extensionContext.call("changeOrientation", stageOrientationEvt.afterOrientation);
-		}
-
-		public function get x():Number {
-
-			return _x;
-		}
-
-		public function set x(value:Number):void {
-
-			_x = value;
-
-			extensionContext.call("changePosition", _x, _y);
-		}
-
-		public function get y():Number {
-
-			return _y;
-		}
-
-		public function set y(value:Number):void {
-
-			_y = value;
-
-			extensionContext.call("changePosition", _x, _y);
 		}
 
 	}
