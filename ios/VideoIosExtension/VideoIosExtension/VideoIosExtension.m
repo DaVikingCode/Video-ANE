@@ -8,11 +8,12 @@
 
 #import "FlashRuntimeExtensions.h"
 #import "NativeVideo.h"
+#import "MultipleNativeVideo.h"
 
 #define DEFINE_ANE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 #define MAP_FUNCTION(fn, data) { (const uint8_t*)(#fn), (data), &(fn) }
 
-NativeVideo *nativeVideo;
+MultipleNativeVideo *video1;
 
 DEFINE_ANE_FUNCTION(init) {
     
@@ -41,11 +42,18 @@ DEFINE_ANE_FUNCTION(init) {
     
     UIWindow *rootView = [[[UIApplication sharedApplication] delegate] window];
     
-    nativeVideo = [[NativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    /*nativeVideo = [[NativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
     [rootView addSubview:nativeVideo];
     
     NSLog(@"%@", NSStringFromCGRect(rootView.frame));
-    NSLog(@"%@", NSStringFromCGRect(rootView.bounds));
+    NSLog(@"%@", NSStringFromCGRect(rootView.bounds));*/
+    
+    video1 = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    
+    [rootView addSubview:video1];
+    
+    //MultipleNativeVideo *video2 = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(0, 150, 300, 300)];
+    //[rootView addSubview:video2];
     
     return NULL;
 }
@@ -58,7 +66,7 @@ DEFINE_ANE_FUNCTION(changePosition) {
     FREGetObjectAsDouble(argv[0], &posX);
     FREGetObjectAsDouble(argv[1], &posY);
     
-    [nativeVideo changePositionX:posX andY:posY];
+    [video1 changePositionX:posX andY:posY];
     
     return NULL;
 }
@@ -70,7 +78,7 @@ DEFINE_ANE_FUNCTION(changeOrientation) {
     
     FREGetObjectAsUTF8(argv[0], &stringLength, &orientation);
     
-    [nativeVideo changeOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    [video1 changeOrientation:[NSString stringWithUTF8String:(char*) orientation]];
     
     return NULL;
 }

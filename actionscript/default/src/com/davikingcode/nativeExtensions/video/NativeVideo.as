@@ -22,7 +22,7 @@ package com.davikingcode.nativeExtensions.video {
 			_stage = stage;
 		}
 
-		public function init(url:String, type:String, posX:Number = 0, posY:Number = 0, width:Number = 480, height:Number = 320):void {
+		public function init(url:String, type:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480):void {
 		}
 
 		public function get x():Number {

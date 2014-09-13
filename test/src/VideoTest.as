@@ -15,7 +15,7 @@ package {
 		
 		private var _video:NativeVideo;
 		private var _patch:PatchRun;
-		private var _bounds:Rectangle = new Rectangle(0, 0, 320, 480);
+		private var _bounds:Rectangle = new Rectangle(0, 0, 480 / 2, 214);
 		
 		public function VideoTest() {
 			
