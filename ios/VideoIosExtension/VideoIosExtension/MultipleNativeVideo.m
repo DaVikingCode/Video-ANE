@@ -21,9 +21,11 @@
         
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
         
-        _playerLayer.frame = frame;
+        _playerLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
         
         [self.layer addSublayer:_playerLayer];
+        
+        [self changePositionX:frame.origin.x andY:frame.origin.y];
         
         _player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
         

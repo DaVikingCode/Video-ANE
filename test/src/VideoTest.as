@@ -5,9 +5,12 @@ package {
 	import com.davikingcode.nativeExtensions.video.NativeVideo;
 
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
-	import flash.utils.setTimeout;
+	
+	[SWF(backgroundColor="#FFFFFF", frameRate="60", width="1024", height="768")]
 
 	/**
 	 * @author Aymeric
@@ -19,6 +22,9 @@ package {
 		private var _bounds:Rectangle = new Rectangle(0, 0, 480 / 2, 214);
 		
 		public function VideoTest() {
+				
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align = StageAlign.TOP_LEFT;
 			
 			_video = new NativeVideo(stage);
 			
@@ -28,22 +34,18 @@ package {
 			
 			_patch = new PatchRun();
 			
-			_patch.x = (stage.stageWidth - _patch.width) * 0.65;
-			_patch.y = stage.stageHeight - _patch.height >> 1;
+			_patch.x = stage.fullScreenWidth - _patch.width >> 1;
+			_patch.y = stage.fullScreenHeight - _patch.height >> 1;
 			addChild(_patch);
-			
-			trace(stage.stageWidth, stage.stageHeight, stage.fullScreenWidth, stage.fullScreenHeight);
 			
 			stage.addEventListener(MouseEvent.CLICK, _click);
 			
-			setTimeout(_rdmPosition, 1000);
+			_rdmPosition();
 		}
 
 		private function _rdmPosition():void {
 			
-			eaze(_video.videos[1]).to(0.2, {x:Math.random() * stage.stageWidth, y:Math.random() * stage.stageHeight});
-			
-			setTimeout(_rdmPosition, 1000);
+			eaze(_video.videos[1]).delay(1).to(0.2, {x:Math.random() * stage.stageWidth / 2, y:Math.random() * stage.stageHeight / 2}).onComplete(_rdmPosition);
 		}
 
 		private function _click(mEvt:MouseEvent):void {
@@ -51,9 +53,7 @@ package {
 			_patch.x = mouseX;
 			_patch.y = mouseY;
 			
-			eaze(_video.videos[0]).to(0.5, {x:mouseX - _bounds.width / 2, y:mouseY - _bounds.height / 2});
-			
-			trace(mouseX, mouseY);
+			eaze(_video.videos[0]).to(0.5, {x:mouseX / 2, y:mouseY / 2});
 		}
 	}
 }
