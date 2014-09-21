@@ -28,9 +28,9 @@ package {
 			
 			_video = new NativeVideo(stage);
 			
-			_video.addVideo("videos/sample_iPod", "m4v", _bounds.x, _bounds.y, _bounds.width, _bounds.height);
+			_video.addVideo("videos/trailer", "mov", _bounds.x, _bounds.y, _bounds.width, _bounds.height);
 			
-			//_video.addVideo("videos/sample_iPod", "m4v", _bounds.x, 150, _bounds.width, _bounds.height);
+			_video.addVideo("videos/sample_iPod", "m4v", _bounds.x, 150, _bounds.width, _bounds.height);
 			
 			_patch = new PatchRun();
 			
@@ -40,7 +40,7 @@ package {
 			
 			stage.addEventListener(MouseEvent.CLICK, _click);
 			
-			//_rdmPosition();
+			_rdmPosition();
 		}
 
 		private function _rdmPosition():void {

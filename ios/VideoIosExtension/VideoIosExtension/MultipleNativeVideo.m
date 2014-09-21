@@ -56,7 +56,6 @@
 }
 
 
-
 - (void) changePositionX:(double) posX andY:(double) posY {
     
     frameX = posX;
@@ -67,6 +66,12 @@
     
     else if ([iOSorientation isEqualToString:@"upsideDown"])
         [self.layer setFrame:CGRectMake(-frameX + [[UIScreen mainScreen] bounds].size.width - self.frame.size.width, -frameY + [[UIScreen mainScreen] bounds].size.height - self.frame.size.height, self.frame.size.width, self.frame.size.height)];
+    
+    else if ([iOSorientation isEqualToString:@"rotatedLeft"])
+        [self.layer setFrame:CGRectMake(frameY, -frameX + [[UIScreen mainScreen] bounds].size.height - self.frame.size.height, self.frame.size.width, self.frame.size.height)];
+    
+    else if ([iOSorientation isEqualToString:@"rotatedRight"])
+        [self.layer setFrame:CGRectMake(-frameY + [[UIScreen mainScreen] bounds].size.width - self.frame.size.width, frameX, self.frame.size.width, self.frame.size.height)];
 }
 
 - (void) changeOrientation:(NSString *) orientation {
