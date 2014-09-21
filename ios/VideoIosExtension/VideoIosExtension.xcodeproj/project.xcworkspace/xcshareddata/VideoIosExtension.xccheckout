@@ -10,29 +10,29 @@
 	<string>VideoIosExtension</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C9C8561B-7EEF-4689-8FB0-9CC97EB9C32C</key>
+		<key>61D8BF3622A2ED11463EDB25AABD19F2B0CE1E29</key>
 		<string>https://github.com/DaVikingCode/Video-ANE.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ios/VideoIosExtension/VideoIosExtension.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C9C8561B-7EEF-4689-8FB0-9CC97EB9C32C</key>
+		<key>61D8BF3622A2ED11463EDB25AABD19F2B0CE1E29</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/DaVikingCode/Video-ANE.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C9C8561B-7EEF-4689-8FB0-9CC97EB9C32C</string>
+	<string>61D8BF3622A2ED11463EDB25AABD19F2B0CE1E29</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C9C8561B-7EEF-4689-8FB0-9CC97EB9C32C</string>
+			<string>61D8BF3622A2ED11463EDB25AABD19F2B0CE1E29</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Video-ANE</string>
 		</dict>

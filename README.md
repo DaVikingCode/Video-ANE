@@ -5,7 +5,7 @@ Video-ANE
 
 Displaying video in a AIR mobile project using Starling is complicated:
 - Flash display list Video object is not efficient
-- StageVideo may not have any things related to Starling on top of it.
+- StageVideo may not have any things related to Starling on top of it and may only have 1 Video playing.
 - [VideoTexture](https://forums.adobe.com/message/6615256) are still not available on mobile.
 
 The goal of this ANE is to display a video, on top of everything. So let's say it's a StageVideo reverse class.

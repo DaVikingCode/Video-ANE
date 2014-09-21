@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface MultipleNativeVideo : UIView
+@interface MultipleNativeVideo : UIView {
+    
+    NSString *iOSorientation;
+    double frameX;
+    double frameY;
+    
+}
 
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
