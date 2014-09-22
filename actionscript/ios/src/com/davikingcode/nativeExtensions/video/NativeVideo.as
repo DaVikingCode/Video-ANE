@@ -11,7 +11,7 @@ package com.davikingcode.nativeExtensions.video {
 
 		public var extensionContext:ExtensionContext;
 
-		public var videos:Array;
+		public var videos:Vector.<VideoObject>;
 
 		private var _stage:Stage;
 
@@ -24,7 +24,7 @@ package com.davikingcode.nativeExtensions.video {
 			_instance = this;
 			_stage = stage;
 
-			videos = [];
+			videos = new Vector.<VideoObject>();
 
 			_stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, _stageOrientationChanging);
 

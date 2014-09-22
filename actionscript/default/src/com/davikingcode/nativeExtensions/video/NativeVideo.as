@@ -8,7 +8,7 @@ package com.davikingcode.nativeExtensions.video {
 
 		private static var _instance:NativeVideo;
 
-		public var videos:Array;
+		public var videos:Vector.<VideoObject>;
 
 		private var _stage:Stage;
 
@@ -21,7 +21,7 @@ package com.davikingcode.nativeExtensions.video {
 			_instance = this;
 			_stage = stage;
 
-			videos = [];
+			videos = new Vector.<VideoObject>();
 		}
 
 		public function addVideo(url:String, type:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480):void {
