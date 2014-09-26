@@ -1,7 +1,7 @@
 Video-ANE
 =========
 
-**Work in progress && iOS only at the moment.**
+**iOS only at the moment.**
 
 Displaying video in a AIR mobile project using Starling is complicated:
 - Flash display list Video object is not efficient
@@ -11,3 +11,27 @@ Displaying video in a AIR mobile project using Starling is complicated:
 The goal of this ANE is to display a video, on top of everything. So let's say it's a StageVideo reverse class.
 
 The movie is [Big Buck Bunny](http://www.bigbuckbunny.org/) and the character comes from the [Citrus Engine](http://citrusengine.com).
+
+```actionscript3
+
+_video = new NativeVideo(stage);
+			
+_video.addVideo("videos/trailer", "mov", VideoObject.MODE_LOOP, _bounds.x, _bounds.y, _bounds.width, _bounds.height);
+			
+_video.addVideo("videos/sample_iPod", "m4v", VideoObject.MODE_LOOP, _bounds.x, 150, _bounds.width, _bounds.height);
+
+// 3 modes: MODE_LOOP, MODE_MANUAL_CONTROL (you will advance video time), MODE_PLAY_ONCE.
+
+// we can display bitmapData on top of the video!
+_video.videos[0].displayBitmapData(new logoBitmap().bitmapData, 50, 50, 150, 120);
+
+//we can tween video position:
+eaze(_video.videos[0]).to(0.5, {x:mouseX / 2, y:mouseY / 2});
+
+//we can move to a video part if the video mode is MODE_MANUAL_CONTROL
+_video.videos[0].gotoVideoTime(2.43);
+
+//for removing videos
+_video.killAllVideos();
+
+```
