@@ -26,4 +26,6 @@
 
 - (void) changeOrientation:(NSString *) orientation;
 
+- (void) destroy;
+
 @end

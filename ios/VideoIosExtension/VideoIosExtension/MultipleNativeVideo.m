@@ -49,6 +49,15 @@
     return self;
 }
 
+- (void) destroy {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[_player currentItem]];
+    
+    [_player pause];
+    
+    [self removeFromSuperview];
+}
+
 - (void) playerItemDidReachEnd:(NSNotification *) notification {
     
     AVPlayerItem *p = [notification object];

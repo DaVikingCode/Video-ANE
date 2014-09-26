@@ -42,6 +42,13 @@ package com.davikingcode.nativeExtensions.video {
 			videos.push(new VideoObject(extensionContext, videos.length, posX, posY));
 		}
 
+		public function killAllVideos():void {
+
+			extensionContext.call("killAllVideos");
+
+			videos.length = 0;
+		}
+
 		private function _stageOrientationChanging(stageOrientationEvt:StageOrientationEvent):void {
 
 			extensionContext.call("changeOrientation", stageOrientationEvt.afterOrientation);

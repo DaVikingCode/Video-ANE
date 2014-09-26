@@ -29,5 +29,9 @@ package com.davikingcode.nativeExtensions.video {
 			videos.push(new VideoObject(null, videos.length, posX, posY));
 		}
 
+		public function killAllVideos():void {
+			videos.length = 0;
+		}
+
 	}
 }

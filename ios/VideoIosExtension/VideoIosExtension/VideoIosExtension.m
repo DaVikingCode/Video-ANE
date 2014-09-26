@@ -89,13 +89,26 @@ DEFINE_ANE_FUNCTION(changeOrientation) {
     return NULL;
 }
 
+DEFINE_ANE_FUNCTION(killAllVideos) {
+    
+    for (id object in videos) {
+        
+        [object destroy];
+    }
+    
+    [videos removeAllObjects];
+    
+    return NULL;
+}
+
 
 void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
     
     static FRENamedFunction functionMap[] = {
         MAP_FUNCTION(addVideo, NULL ),
         MAP_FUNCTION(changePosition, NULL ),
-        MAP_FUNCTION(changeOrientation, NULL )
+        MAP_FUNCTION(changeOrientation, NULL ),
+        MAP_FUNCTION(killAllVideos, NULL )
     };
     
     *numFunctionsToSet = sizeof( functionMap ) / sizeof( FRENamedFunction );
