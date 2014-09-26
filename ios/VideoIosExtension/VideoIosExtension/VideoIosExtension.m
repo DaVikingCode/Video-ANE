@@ -27,29 +27,33 @@ DEFINE_ANE_FUNCTION(addVideo) {
     uint32_t string2Length;
     const uint8_t *type;
     
+    uint32_t string3Length;
+    const uint8_t *mode;
+    
     double posX;
     double posY;
     
     double width;
     double height;
     
-    uint32_t string3Length;
+    uint32_t string4Length;
     const uint8_t *orientation;
     
     FREGetObjectAsUTF8(argv[0], &string1Length, &url);
     FREGetObjectAsUTF8(argv[1], &string2Length, &type);
-    FREGetObjectAsDouble(argv[2], &posX);
-    FREGetObjectAsDouble(argv[3], &posY);
-    FREGetObjectAsDouble(argv[4], &width);
-    FREGetObjectAsDouble(argv[5], &height);
-    FREGetObjectAsUTF8(argv[6], &string3Length, &orientation);
+    FREGetObjectAsUTF8(argv[2], &string3Length, &mode);
+    FREGetObjectAsDouble(argv[3], &posX);
+    FREGetObjectAsDouble(argv[4], &posY);
+    FREGetObjectAsDouble(argv[5], &width);
+    FREGetObjectAsDouble(argv[6], &height);
+    FREGetObjectAsUTF8(argv[7], &string4Length, &orientation);
     
     UIWindow *rootView = [[[UIApplication sharedApplication] delegate] window];
     
     /*nativeVideo = [[NativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
     [rootView addSubview:nativeVideo];*/
     
-    MultipleNativeVideo *video = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    MultipleNativeVideo *video = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type] usingMode:[NSString stringWithUTF8String:(char *) mode] withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
     
     [rootView addSubview:video];
     
@@ -70,6 +74,22 @@ DEFINE_ANE_FUNCTION(changePosition) {
     FREGetObjectAsDouble(argv[2], &posY);
     
     [[videos objectAtIndex:videoIndex] changePositionX:posX andY:posY];
+    
+    return NULL;
+}
+
+DEFINE_ANE_FUNCTION(gotoVideoTime) {
+    
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
+    double time;
+    
+    FREGetObjectAsDouble(argv[1], &time);
+    
+    NSLog(@"%f", time);
+    
+    [[videos objectAtIndex:videoIndex] gotoVideoTime:time];
     
     return NULL;
 }
@@ -108,7 +128,8 @@ void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext c
         MAP_FUNCTION(addVideo, NULL ),
         MAP_FUNCTION(changePosition, NULL ),
         MAP_FUNCTION(changeOrientation, NULL ),
-        MAP_FUNCTION(killAllVideos, NULL )
+        MAP_FUNCTION(killAllVideos, NULL ),
+        MAP_FUNCTION(gotoVideoTime, NULL )
     };
     
     *numFunctionsToSet = sizeof( functionMap ) / sizeof( FRENamedFunction );

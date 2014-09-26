@@ -4,18 +4,35 @@ package com.davikingcode.nativeExtensions.video {
 
 	public class VideoObject extends Object {
 
+		static public const MODE_LOOP:String = "MODE_LOOP";
+		static public const MODE_MANUAL_CONTROL:String = "MODE_MANUAL_CONTROL";
+		static public const MODE_PLAY_ONCE:String = "MODE_PLAY_ONCE";
+
 		public var extensionContext:ExtensionContext;
 
 		private var _index:uint;
+		private var _mode:String;
 		private var _x:Number;
 		private var _y:Number;
 
-		public function VideoObject(extensionContext:ExtensionContext, index:uint, posX:uint, posY:uint) {
+		public function VideoObject(extensionContext:ExtensionContext, index:uint, mode:String, posX:uint, posY:uint) {
 
 			this.extensionContext = extensionContext;
+
 			_index = index;
+			_mode = mode;
 			_x = posX;
 			_y = posY;
+		}
+
+		public function get mode():String {
+			return _mode;
+		}
+
+		public function gotoVideoTime(time:Number):void {
+
+			if (extensionContext && _mode == MODE_MANUAL_CONTROL)
+				extensionContext.call("gotoVideoTime", _index, time);
 		}
 
 		public function get x():Number {

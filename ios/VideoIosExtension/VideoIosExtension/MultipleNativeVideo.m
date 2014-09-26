@@ -10,7 +10,7 @@
 
 @implementation MultipleNativeVideo
 
-- (id) initWithFrame:(CGRect)frame andUrl:(NSString *) url ofType:(NSString *) type withOrientation:(NSString *) orientation {
+- (id) initWithFrame:(CGRect)frame andUrl:(NSString *) url ofType:(NSString *) type usingMode:(NSString *) mode withOrientation:(NSString *) orientation {
     
     self = [super initWithFrame:frame];
     if (self) {
@@ -28,16 +28,23 @@
         iOSorientation = orientation;
         frameX = frame.origin.x;
         frameY = frame.origin.y;
+        videoMode = mode;
         
         [self changePositionX:frame.origin.x andY:frame.origin.y];
         
-        _player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        if ([videoMode isEqualToString:@"MODE_LOOP"]) {
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[_player currentItem]];
+            _player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[_player currentItem]];
+        }
         
         self.userInteractionEnabled = NO;
         
-        [_player play];
+        if (![videoMode isEqualToString:@"MODE_MANUAL_CONTROL"]) {
+        
+            [_player play];
+        }
         
         //_playerLayer.videoGravity = AVLayerVideoGravityResizeAspect; //defaul, preserve aspect ratio; fit within layer bounds.
         //_playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill; // Preserve aspect ratio; fill layer bounds
@@ -51,7 +58,10 @@
 
 - (void) destroy {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[_player currentItem]];
+    if ([videoMode isEqualToString:@"MODE_LOOP"]) {
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[_player currentItem]];
+    }
     
     [_player pause];
     
@@ -62,6 +72,14 @@
     
     AVPlayerItem *p = [notification object];
     [p seekToTime:kCMTimeZero];
+}
+
+- (void) gotoVideoTime:(double) time {
+    
+    [_player seekToTime:CMTimeMakeWithSeconds(time, NSEC_PER_SEC)];
+    
+    NSLog(@"là");
+    NSLog(@"%f", time);
 }
 
 

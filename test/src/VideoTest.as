@@ -3,6 +3,7 @@ package {
 	import aze.motion.eaze;
 
 	import com.davikingcode.nativeExtensions.video.NativeVideo;
+	import com.davikingcode.nativeExtensions.video.VideoObject;
 
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -28,9 +29,9 @@ package {
 			
 			_video = new NativeVideo(stage);
 			
-			_video.addVideo("videos/trailer", "mov", _bounds.x, _bounds.y, _bounds.width, _bounds.height);
+			_video.addVideo("videos/trailer", "mov", VideoObject.MODE_MANUAL_CONTROL, _bounds.x, _bounds.y, _bounds.width, _bounds.height);
 			
-			_video.addVideo("videos/sample_iPod", "m4v", _bounds.x, 150, _bounds.width, _bounds.height);
+			_video.addVideo("videos/sample_iPod", "m4v", VideoObject.MODE_LOOP, _bounds.x, 150, _bounds.width, _bounds.height);
 			
 			_patch = new PatchRun();
 			
