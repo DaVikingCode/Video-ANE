@@ -24,6 +24,7 @@
 
 - (void) changePositionX:(double) posX andY:(double) posY;
 - (void) gotoVideoTime:(double) time;
+- (void) displayBitmapData:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height;
 
 - (void) changeOrientation:(NSString *) orientation;
 

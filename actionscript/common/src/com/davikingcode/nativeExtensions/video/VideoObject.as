@@ -1,5 +1,6 @@
 package com.davikingcode.nativeExtensions.video {
 
+	import flash.display.BitmapData;
 	import flash.external.ExtensionContext;
 
 	public class VideoObject extends Object {
@@ -15,7 +16,7 @@ package com.davikingcode.nativeExtensions.video {
 		private var _x:Number;
 		private var _y:Number;
 
-		public function VideoObject(extensionContext:ExtensionContext, index:uint, mode:String, posX:uint, posY:uint) {
+		public function VideoObject(extensionContext:ExtensionContext, index:uint, mode:String, posX:Number, posY:Number) {
 
 			this.extensionContext = extensionContext;
 
@@ -33,6 +34,12 @@ package com.davikingcode.nativeExtensions.video {
 
 			if (extensionContext && _mode == MODE_MANUAL_CONTROL)
 				extensionContext.call("gotoVideoTime", _index, time);
+		}
+
+		public function displayBitmapData(bmpd:BitmapData, posX:Number, posY:Number, width:Number, height:Number):void {
+
+			if (extensionContext)
+				extensionContext.call("displayBitmapData", _index, bmpd, posX, posY, width, height);
 		}
 
 		public function get x():Number {

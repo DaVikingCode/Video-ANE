@@ -18,6 +18,9 @@ package {
 	 */
 	public class VideoTest extends Sprite {
 		
+		[Embed(source="/../../embed/logo.png")]
+		private const logoBitmap:Class;
+		
 		private var _video:NativeVideo;
 		private var _patch:PatchRun;
 		private var _bounds:Rectangle = new Rectangle(0, 0, 480 / 2, 214);
@@ -29,9 +32,12 @@ package {
 			
 			_video = new NativeVideo(stage);
 			
-			_video.addVideo("videos/trailer", "mov", VideoObject.MODE_MANUAL_CONTROL, _bounds.x, _bounds.y, _bounds.width, _bounds.height);
+			_video.addVideo("videos/trailer", "mov", VideoObject.MODE_LOOP, _bounds.x, _bounds.y, _bounds.width, _bounds.height);
 			
 			_video.addVideo("videos/sample_iPod", "m4v", VideoObject.MODE_LOOP, _bounds.x, 150, _bounds.width, _bounds.height);
+			
+			// we can display bitmapData on top of the video!
+			_video.videos[0].displayBitmapData(new logoBitmap().bitmapData, 50, 50, 150, 120);
 			
 			_patch = new PatchRun();
 			

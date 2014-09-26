@@ -77,11 +77,16 @@
 - (void) gotoVideoTime:(double) time {
     
     [_player seekToTime:CMTimeMakeWithSeconds(time, NSEC_PER_SEC)];
-    
-    NSLog(@"là");
-    NSLog(@"%f", time);
 }
 
+- (void) displayBitmapData:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height {
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
+    
+    imageView.frame = CGRectMake(posX, posY, width, height);
+    
+    [self addSubview:imageView];
+}
 
 - (void) changePositionX:(double) posX andY:(double) posY {
     
