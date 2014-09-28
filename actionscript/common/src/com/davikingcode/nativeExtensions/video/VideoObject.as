@@ -16,6 +16,8 @@ package com.davikingcode.nativeExtensions.video {
 		private var _x:Number;
 		private var _y:Number;
 
+		private var _paused:Boolean = false;
+
 		public function VideoObject(extensionContext:ExtensionContext, index:uint, mode:String, posX:Number, posY:Number) {
 
 			this.extensionContext = extensionContext;
@@ -64,6 +66,19 @@ package com.davikingcode.nativeExtensions.video {
 			_y = value;
 
 			_changePosition();
+		}
+
+		public function get paused():Boolean {
+
+			return _paused;
+		}
+
+		public function set paused(value:Boolean):void {
+
+			_paused = value;
+
+			if (extensionContext)
+				extensionContext.call("paused", _index, _paused);
 		}
 
 		private function _changePosition():void {

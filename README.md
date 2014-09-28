@@ -34,4 +34,7 @@ _video.videos[0].gotoVideoTime(2.43);
 //for removing videos
 _video.killAllVideos();
 
+//pause, unpause video
+_video.videos[0].paused = true
+
 ```

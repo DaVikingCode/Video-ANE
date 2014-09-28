@@ -92,6 +92,19 @@ DEFINE_ANE_FUNCTION(gotoVideoTime) {
     return NULL;
 }
 
+DEFINE_ANE_FUNCTION(paused) {
+    
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
+    uint32_t pauseValue;
+    FREGetObjectAsBool(argv[1], &pauseValue);
+    
+    [[videos objectAtIndex:videoIndex] paused:pauseValue];
+    
+    return NULL;
+}
+
 DEFINE_ANE_FUNCTION(displayBitmapData) {
     
     uint32_t videoIndex;
@@ -180,6 +193,7 @@ void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext c
         MAP_FUNCTION(changeOrientation, NULL ),
         MAP_FUNCTION(killAllVideos, NULL ),
         MAP_FUNCTION(gotoVideoTime, NULL ),
+        MAP_FUNCTION(paused, NULL ),
         MAP_FUNCTION(displayBitmapData, NULL )
     };
     

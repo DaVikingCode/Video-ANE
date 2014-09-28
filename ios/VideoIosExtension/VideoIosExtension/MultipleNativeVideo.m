@@ -79,6 +79,14 @@
     [_player seekToTime:CMTimeMakeWithSeconds(time, NSEC_PER_SEC)];
 }
 
+- (void) paused:(BOOL) pauseValue {
+    
+    if (pauseValue)
+        [_player pause];
+    else
+        [_player play];
+}
+
 - (void) displayBitmapData:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height {
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
