@@ -129,6 +129,8 @@
     
     if (imageOverlay != nil)
         imageOverlay.frame = CGRectMake(imageOverlayframeX - posX, imageOverlayframeY - posY, imageOverlayWidth, imageOverlayHeight);
+    
+    imageOverlay.alpha = CGRectIntersectsRect(imageOverlay.frame, _playerLayer.frame);
 }
 
 - (void) changeOrientation:(NSString *) orientation {

@@ -37,7 +37,7 @@ package {
 			_video.addVideo("videos/sample_iPod", "m4v", VideoObject.MODE_LOOP, _bounds.x, 150, _bounds.width, _bounds.height);
 			
 			// we can display bitmapData on top of the video!
-			_video.videos[0].displayBitmapData(new logoBitmap().bitmapData, 50, 50, 150, 120);
+			_video.videos[0].displayBitmapDataOverlay(new logoBitmap().bitmapData, 50, 50, 150, 120);
 			
 			_patch = new PatchRun();
 			
