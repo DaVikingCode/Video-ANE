@@ -96,6 +96,20 @@
     [self addSubview:imageView];
 }
 
+- (void) displayBitmapDataOverlay:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height {
+
+    imageOverlay = [[UIImageView alloc] initWithImage:img];
+    
+    imageOverlay.frame = CGRectMake(posX, posY, width, height);
+    
+    imageOverlayframeX = posX;
+    imageOverlayframeY = posY;
+    imageOverlayWidth = width;
+    imageOverlayHeight = height;
+    
+    [self addSubview:imageOverlay];
+}
+
 - (void) changePositionX:(double) posX andY:(double) posY {
     
     frameX = posX;
@@ -112,6 +126,9 @@
     
     else if ([iOSorientation isEqualToString:@"rotatedRight"])
         [self.layer setFrame:CGRectMake(-frameY + [[UIScreen mainScreen] bounds].size.width - self.frame.size.width, frameX, self.frame.size.width, self.frame.size.height)];
+    
+    if (imageOverlay != nil)
+        imageOverlay.frame = CGRectMake(imageOverlayframeX - posX, imageOverlayframeY - posY, imageOverlayWidth, imageOverlayHeight);
 }
 
 - (void) changeOrientation:(NSString *) orientation {

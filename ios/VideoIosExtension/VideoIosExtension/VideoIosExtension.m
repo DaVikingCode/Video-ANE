@@ -157,6 +157,58 @@ DEFINE_ANE_FUNCTION(displayBitmapData) {
     return NULL;
 }
 
+DEFINE_ANE_FUNCTION(displayBitmapDataOverlay) {
+    
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
+    FREBitmapData bitmapData;
+    FREAcquireBitmapData(argv[1], &bitmapData);
+    
+    int width = bitmapData.width;
+    int height = bitmapData.height;
+    int stride = bitmapData.lineStride32 * 4;
+    uint32_t* input = bitmapData.bits32;
+    
+    // make data provider from buffer
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, bitmapData.bits32, (width * height * 4), NULL);
+    // set up for CGImage creation
+    int bitsPerComponent = 8;
+    int bitsPerPixel = 32;
+    int bytesPerRow = 4 * width;
+    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+    CGBitmapInfo bitmapInfo;
+    if( bitmapData.hasAlpha )
+    {
+        if( bitmapData.isPremultiplied )
+            bitmapInfo = kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst;
+        else
+            bitmapInfo = kCGBitmapByteOrder32Little | kCGImageAlphaFirst;
+    } else {
+        bitmapInfo = kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipFirst;
+    }
+    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
+    CGImageRef image = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
+    
+    double posX;
+    double posY;
+    double imgWidth;
+    double imgHeight;
+    
+    FREGetObjectAsDouble(argv[2], &posX);
+    FREGetObjectAsDouble(argv[3], &posY);
+    FREGetObjectAsDouble(argv[4], &imgWidth);
+    FREGetObjectAsDouble(argv[5], &imgHeight);
+    
+    UIImage *img = [[UIImage alloc] initWithCGImage:image];
+    
+    [[videos objectAtIndex:videoIndex] displayBitmapDataOverlay:img withPositionX:posX andY:posY withWidth:imgWidth andHeight:imgHeight];
+    
+    FREReleaseBitmapData(argv[1]);
+    
+    return NULL;
+}
+
 DEFINE_ANE_FUNCTION(changeOrientation) {
     
     uint32_t stringLength;
@@ -194,7 +246,8 @@ void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext c
         MAP_FUNCTION(killAllVideos, NULL ),
         MAP_FUNCTION(gotoVideoTime, NULL ),
         MAP_FUNCTION(paused, NULL ),
-        MAP_FUNCTION(displayBitmapData, NULL )
+        MAP_FUNCTION(displayBitmapData, NULL ),
+        MAP_FUNCTION(displayBitmapDataOverlay, NULL )
     };
     
     *numFunctionsToSet = sizeof( functionMap ) / sizeof( FRENamedFunction );

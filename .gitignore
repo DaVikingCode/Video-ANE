@@ -5,3 +5,4 @@ tmp
 *.app
 bin/VideoANE.app*
 *.swf
+*.stamp

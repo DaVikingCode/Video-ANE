@@ -44,6 +44,12 @@ package com.davikingcode.nativeExtensions.video {
 				extensionContext.call("displayBitmapData", _index, bmpd, posX, posY, width, height);
 		}
 
+		public function displayBitmapDataOverlay(bmpd:BitmapData, posX:Number, posY:Number, width:Number, height:Number):void {
+
+			if (extensionContext)
+				extensionContext.call("displayBitmapDataOverlay", _index, bmpd, posX, posY, width, height);
+		}
+
 		public function get x():Number {
 
 			return _x;

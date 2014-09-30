@@ -15,6 +15,11 @@
     double frameX;
     double frameY;
     NSString *videoMode;
+    UIImageView *imageOverlay;
+    double imageOverlayframeX;
+    double imageOverlayframeY;
+    double imageOverlayWidth;
+    double imageOverlayHeight;
 }
 
 @property (strong, nonatomic) AVPlayer *player;
@@ -26,6 +31,7 @@
 - (void) gotoVideoTime:(double) time;
 - (void) paused:(BOOL) pauseValue;
 - (void) displayBitmapData:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height;
+- (void) displayBitmapDataOverlay:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height;
 
 - (void) changeOrientation:(NSString *) orientation;
 
