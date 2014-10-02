@@ -10,7 +10,7 @@
 
 @implementation MultipleNativeVideo
 
-- (id) initWithFrame:(CGRect)frame andUrl:(NSString *) url ofType:(NSString *) type usingMode:(NSString *) mode withOrientation:(NSString *) orientation {
+- (id) initWithFrame:(CGRect)frame andUrl:(NSString *) url ofType:(NSString *) type usingMode:(NSString *) mode withOrientation:(NSString *) orientation andOrientationSpeed:(double) speed {
     
     self = [super initWithFrame:frame];
     if (self) {
@@ -26,6 +26,7 @@
         [self.layer addSublayer:_playerLayer];
         
         iOSorientation = orientation;
+        speedRotation = speed;
         frameX = frame.origin.x;
         frameY = frame.origin.y;
         videoMode = mode;
@@ -170,7 +171,7 @@
     iOSorientation = orientation;
     
     [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.55];
+    [UIView setAnimationDuration:speedRotation];
     
     if ([iOSorientation isEqualToString:@"upsideDown"])
         degree = -180;

@@ -35,9 +35,9 @@ package com.davikingcode.nativeExtensions.video {
 
 		}
 
-		public function addVideo(url:String, type:String, mode:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480):void {
+		public function addVideo(url:String, type:String, mode:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480, speedRotation:Number = 0.55):void {
 
-			extensionContext.call("addVideo", url, type, mode, posX, posY, width, height, _stage.orientation);
+			extensionContext.call("addVideo", url, type, mode, posX, posY, width, height, speedRotation, _stage.orientation);
 
 			videos.push(new VideoObject(extensionContext, videos.length, mode, posX, posY));
 		}

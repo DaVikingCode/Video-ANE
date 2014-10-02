@@ -24,7 +24,7 @@ package com.davikingcode.nativeExtensions.video {
 			videos = new Vector.<VideoObject>();
 		}
 
-		public function addVideo(url:String, type:String, mode:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480):void {
+		public function addVideo(url:String, type:String, mode:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480, speedRotation:Number = 0.55):void {
 
 			videos.push(new VideoObject(null, videos.length, mode, posX, posY));
 		}

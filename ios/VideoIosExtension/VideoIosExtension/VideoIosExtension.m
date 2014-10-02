@@ -36,6 +36,8 @@ DEFINE_ANE_FUNCTION(addVideo) {
     double width;
     double height;
     
+    double speedRotation;
+    
     uint32_t string4Length;
     const uint8_t *orientation;
     
@@ -46,14 +48,15 @@ DEFINE_ANE_FUNCTION(addVideo) {
     FREGetObjectAsDouble(argv[4], &posY);
     FREGetObjectAsDouble(argv[5], &width);
     FREGetObjectAsDouble(argv[6], &height);
-    FREGetObjectAsUTF8(argv[7], &string4Length, &orientation);
+    FREGetObjectAsDouble(argv[7], &speedRotation);
+    FREGetObjectAsUTF8(argv[8], &string4Length, &orientation);
     
     UIWindow *rootView = [[[UIApplication sharedApplication] delegate] window];
     
     /*nativeVideo = [[NativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type]withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
     [rootView addSubview:nativeVideo];*/
     
-    MultipleNativeVideo *video = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type] usingMode:[NSString stringWithUTF8String:(char *) mode] withOrientation:[NSString stringWithUTF8String:(char*) orientation]];
+    MultipleNativeVideo *video = [[MultipleNativeVideo alloc] initWithFrame:CGRectMake(posX, posY, width, height) andUrl:[NSString stringWithUTF8String:(char*) url] ofType:[NSString stringWithUTF8String:(char *) type] usingMode:[NSString stringWithUTF8String:(char *) mode] withOrientation:[NSString stringWithUTF8String:(char*) orientation] andOrientationSpeed:speedRotation];
     
     [rootView addSubview:video];
     

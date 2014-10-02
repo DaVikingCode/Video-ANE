@@ -12,6 +12,7 @@
 @interface MultipleNativeVideo : UIView {
     
     NSString *iOSorientation;
+    double speedRotation;
     double frameX;
     double frameY;
     NSString *videoMode;
@@ -25,7 +26,7 @@
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
 
-- (id) initWithFrame:(CGRect)frame andUrl:(NSString *) url ofType:(NSString *) type usingMode:(NSString *) mode withOrientation:(NSString *) orientation;
+- (id) initWithFrame:(CGRect)frame andUrl:(NSString *) url ofType:(NSString *) type usingMode:(NSString *) mode withOrientation:(NSString *) orientation andOrientationSpeed:(double) speed;
 
 - (void) changePositionX:(double) posX andY:(double) posY;
 - (void) gotoVideoTime:(double) time;
