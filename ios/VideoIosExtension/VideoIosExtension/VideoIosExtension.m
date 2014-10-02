@@ -92,6 +92,20 @@ DEFINE_ANE_FUNCTION(gotoVideoTime) {
     return NULL;
 }
 
+DEFINE_ANE_FUNCTION(changeSoundVolume) {
+    
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
+    double volume;
+    
+    FREGetObjectAsDouble(argv[1], &volume);
+    
+    [[videos objectAtIndex:videoIndex] changeSoundVolume:volume];
+    
+    return NULL;
+}
+
 DEFINE_ANE_FUNCTION(paused) {
     
     uint32_t videoIndex;
@@ -115,8 +129,6 @@ DEFINE_ANE_FUNCTION(displayBitmapData) {
     
     int width = bitmapData.width;
     int height = bitmapData.height;
-    int stride = bitmapData.lineStride32 * 4;
-    uint32_t* input = bitmapData.bits32;
     
     // make data provider from buffer
     CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, bitmapData.bits32, (width * height * 4), NULL);
@@ -167,8 +179,6 @@ DEFINE_ANE_FUNCTION(displayBitmapDataOverlay) {
     
     int width = bitmapData.width;
     int height = bitmapData.height;
-    int stride = bitmapData.lineStride32 * 4;
-    uint32_t* input = bitmapData.bits32;
     
     // make data provider from buffer
     CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, bitmapData.bits32, (width * height * 4), NULL);
@@ -245,6 +255,7 @@ void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext c
         MAP_FUNCTION(changeOrientation, NULL ),
         MAP_FUNCTION(killAllVideos, NULL ),
         MAP_FUNCTION(gotoVideoTime, NULL ),
+        MAP_FUNCTION(changeSoundVolume, NULL),
         MAP_FUNCTION(paused, NULL ),
         MAP_FUNCTION(displayBitmapData, NULL ),
         MAP_FUNCTION(displayBitmapDataOverlay, NULL )

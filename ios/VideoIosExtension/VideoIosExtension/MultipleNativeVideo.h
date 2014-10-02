@@ -30,6 +30,7 @@
 - (void) changePositionX:(double) posX andY:(double) posY;
 - (void) gotoVideoTime:(double) time;
 - (void) paused:(BOOL) pauseValue;
+- (void) changeSoundVolume:(double) volume;
 - (void) displayBitmapData:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height;
 - (void) displayBitmapDataOverlay:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height;
 

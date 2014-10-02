@@ -35,6 +35,9 @@ _video.videos[0].gotoVideoTime(2.43);
 _video.killAllVideos();
 
 //pause, unpause video
-_video.videos[0].paused = true
+_video.videos[0].paused = true;
+
+//we may change video volume
+_video.videos[0].volume = 0.3;
 
 ```

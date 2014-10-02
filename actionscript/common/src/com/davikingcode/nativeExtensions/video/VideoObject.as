@@ -17,6 +17,7 @@ package com.davikingcode.nativeExtensions.video {
 		private var _y:Number;
 
 		private var _paused:Boolean = false;
+		private var _volume:Number = 1;
 
 		public function VideoObject(extensionContext:ExtensionContext, index:uint, mode:String, posX:Number, posY:Number) {
 
@@ -85,6 +86,19 @@ package com.davikingcode.nativeExtensions.video {
 
 			if (extensionContext)
 				extensionContext.call("paused", _index, _paused);
+		}
+
+		public function get volume():Number {
+
+			return _volume;
+		}
+
+		public function set volume(value:Number):void {
+
+			_volume = value;
+
+			if (extensionContext)
+				extensionContext.call("changeSoundVolume", _index, _volume);
 		}
 
 		private function _changePosition():void {

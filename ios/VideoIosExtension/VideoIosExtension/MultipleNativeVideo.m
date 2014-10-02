@@ -87,6 +87,36 @@
         [_player play];
 }
 
+- (void) changeSoundVolume:(double) volume {
+    
+    if ([_player respondsToSelector:@selector(setVolume:)]) {
+        
+        _player.volume = volume;
+        
+    } else {
+    
+        AVPlayerItem *myAVPlayerItem = _player.currentItem;
+        AVAsset *myAVAsset = myAVPlayerItem.asset;
+        NSArray *audioTracks = [myAVAsset tracksWithMediaType:AVMediaTypeAudio];
+    
+        NSMutableArray *allAudioParams = [NSMutableArray array];
+        for (AVAssetTrack *track in audioTracks) {
+        
+            AVMutableAudioMixInputParameters *audioInputParams = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:track];
+        
+        
+            [audioInputParams setVolume:volume atTime:kCMTimeZero];
+        
+            [allAudioParams addObject:audioInputParams];
+        }
+    
+        AVMutableAudioMix *audioMix = [AVMutableAudioMix audioMix];
+        [audioMix setInputParameters:allAudioParams];
+    
+        [myAVPlayerItem setAudioMix:audioMix];
+    }
+}
+
 - (void) displayBitmapData:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height {
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];

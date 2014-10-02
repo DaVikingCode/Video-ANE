@@ -53,6 +53,8 @@ package {
 		private function _rdmPosition():void {
 			
 			eaze(_video.videos[1]).delay(1).to(0.2, {x:Math.random() * stage.stageWidth / 2, y:Math.random() * stage.stageHeight / 2}).onComplete(_rdmPosition);
+			
+			eaze(_video.videos[1]).to(2, {volume:Math.random()});
 		}
 
 		private function _click(mEvt:MouseEvent):void {
