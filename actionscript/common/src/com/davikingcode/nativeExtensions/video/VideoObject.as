@@ -51,6 +51,11 @@ package com.davikingcode.nativeExtensions.video {
 				extensionContext.call("displayBitmapDataOverlay", _index, bmpd, posX, posY, width, height);
 		}
 
+		internal function updateIndex(index:uint):void {
+
+			_index = index;
+		}
+
 		public function get x():Number {
 
 			return _x;
@@ -99,6 +104,11 @@ package com.davikingcode.nativeExtensions.video {
 
 			if (extensionContext)
 				extensionContext.call("changeSoundVolume", _index, _volume);
+		}
+
+		public function get index():uint {
+
+			return _index;
 		}
 
 		private function _changePosition():void {

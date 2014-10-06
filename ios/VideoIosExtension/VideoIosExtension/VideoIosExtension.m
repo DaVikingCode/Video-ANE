@@ -65,6 +65,18 @@ DEFINE_ANE_FUNCTION(addVideo) {
     return NULL;
 }
 
+DEFINE_ANE_FUNCTION(removeVideo) {
+    
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
+    [[videos objectAtIndex:videoIndex] destroy];
+    
+    [videos removeObjectAtIndex:videoIndex];
+    
+    return NULL;
+}
+
 DEFINE_ANE_FUNCTION(changePosition) {
     
     uint32_t videoIndex;
@@ -254,6 +266,7 @@ void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext c
     
     static FRENamedFunction functionMap[] = {
         MAP_FUNCTION(addVideo, NULL ),
+        MAP_FUNCTION(removeVideo, NULL ),
         MAP_FUNCTION(changePosition, NULL ),
         MAP_FUNCTION(changeOrientation, NULL ),
         MAP_FUNCTION(killAllVideos, NULL ),

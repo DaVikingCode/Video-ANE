@@ -16,28 +16,31 @@ The movie is [Big Buck Bunny](http://www.bigbuckbunny.org/) and the character co
 
 _video = new NativeVideo(stage);
 			
-_video.addVideo("videos/trailer", "mov", VideoObject.MODE_LOOP, _bounds.x, _bounds.y, _bounds.width, _bounds.height);
+var movie:VideoObject = _video.addVideo("videos/trailer", "mov", VideoObject.MODE_LOOP, _bounds.x, _bounds.y, _bounds.width, _bounds.height);
 			
 _video.addVideo("videos/sample_iPod", "m4v", VideoObject.MODE_LOOP, _bounds.x, 150, _bounds.width, _bounds.height);
 
 // 3 modes: MODE_LOOP, MODE_MANUAL_CONTROL (you will advance video time), MODE_PLAY_ONCE.
 
 // we can display bitmapData on top of the video!
-_video.videos[0].displayBitmapData(new logoBitmap().bitmapData, 50, 50, 150, 120);
+movie.displayBitmapData(new logoBitmap().bitmapData, 50, 50, 150, 120);
 
 //we can tween video position:
-eaze(_video.videos[0]).to(0.5, {x:mouseX / 2, y:mouseY / 2});
+eaze(movie).to(0.5, {x:mouseX / 2, y:mouseY / 2});
 
 //we can move to a video part if the video mode is MODE_MANUAL_CONTROL
 _video.videos[0].gotoVideoTime(2.43);
 
-//for removing videos
+//remove a video (be careful it changes all videos index).
+_video.removeVideo(movie);
+
+//for removing all videos
 _video.killAllVideos();
 
 //pause, unpause video
-_video.videos[0].paused = true;
+_video.videos[1].paused = true;
 
 //we may change video volume
-_video.videos[0].volume = 0.3;
+_video.videos[1].volume = 0.3;
 
 ```

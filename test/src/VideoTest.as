@@ -25,6 +25,8 @@ package {
 		private var _patch:PatchRun;
 		private var _bounds:Rectangle = new Rectangle(0, 0, 480 / 2, 214);
 		
+		private var _movie:VideoObject;
+		
 		public function VideoTest() {
 				
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -32,12 +34,12 @@ package {
 			
 			_video = new NativeVideo(stage);
 			
-			_video.addVideo("videos/trailer", "mov", VideoObject.MODE_LOOP, _bounds.x, _bounds.y, _bounds.width, _bounds.height);
+			_movie = _video.addVideo("videos/trailer", "mov", VideoObject.MODE_LOOP, _bounds.x, _bounds.y, _bounds.width, _bounds.height);
 			
 			_video.addVideo("videos/sample_iPod", "m4v", VideoObject.MODE_LOOP, _bounds.x, 150, _bounds.width, _bounds.height);
 			
 			// we can display bitmapData on top of the video!
-			_video.videos[0].displayBitmapDataOverlay(new logoBitmap().bitmapData, 50, 50, 150, 120);
+			_movie.displayBitmapDataOverlay(new logoBitmap().bitmapData, 50, 50, 150, 120);
 			
 			_patch = new PatchRun();
 			
@@ -54,7 +56,7 @@ package {
 			
 			eaze(_video.videos[1]).delay(1).to(0.2, {x:Math.random() * stage.stageWidth / 2, y:Math.random() * stage.stageHeight / 2}).onComplete(_rdmPosition);
 			
-			eaze(_video.videos[1]).to(2, {volume:Math.random()});
+			eaze(_video.videos[1]).to(1, {volume:Math.random()}, false);
 		}
 
 		private function _click(mEvt:MouseEvent):void {
@@ -62,7 +64,7 @@ package {
 			_patch.x = mouseX;
 			_patch.y = mouseY;
 			
-			eaze(_video.videos[0]).to(0.5, {x:mouseX / 2, y:mouseY / 2});
+			eaze(_movie).to(0.5, {x:mouseX / 2, y:mouseY / 2});
 		}
 	}
 }
