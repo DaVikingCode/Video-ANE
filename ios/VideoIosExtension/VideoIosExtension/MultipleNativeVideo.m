@@ -77,7 +77,7 @@
 
 - (void) gotoVideoTime:(double) time {
     
-    [_player seekToTime:CMTimeMakeWithSeconds(time, NSEC_PER_SEC)];
+    [_player seekToTime:(CMTimeMake(time * 100, 100)) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 
 - (void) paused:(BOOL) pauseValue {
