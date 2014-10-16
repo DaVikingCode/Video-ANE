@@ -44,3 +44,5 @@ _video.videos[1].paused = true;
 _video.videos[1].volume = 0.3;
 
 ```
+
+*We recommend to remove the video when the app `DEACTIVATE` and add it again when the `ACTIVATE`'s Event occurs.*
