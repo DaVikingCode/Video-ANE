@@ -254,6 +254,45 @@ DEFINE_ANE_FUNCTION(removeLatestBitmapData) {
     return NULL;
 }
 
+DEFINE_ANE_FUNCTION(playAnimation) {
+    
+    uint32_t videoIndex;
+    
+    uint32_t string1Length;
+    const uint8_t *animation;
+    
+    uint32_t from;
+    uint32_t to;
+    
+    uint32_t string2Length;
+    const uint8_t *directory;
+    
+    double speed;
+    uint32_t repeat;
+    
+    double posX;
+    double posY;
+    
+    double width;
+    double height;
+    
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    FREGetObjectAsUTF8(argv[1], &string1Length, &animation);
+    FREGetObjectAsUint32(argv[2], &from);
+    FREGetObjectAsUint32(argv[3], &to);
+    FREGetObjectAsUTF8(argv[4], &string2Length, &directory);
+    FREGetObjectAsDouble(argv[5], &speed);
+    FREGetObjectAsUint32(argv[6], &repeat);
+    FREGetObjectAsDouble(argv[7], &posX);
+    FREGetObjectAsDouble(argv[8], &posY);
+    FREGetObjectAsDouble(argv[9], &width);
+    FREGetObjectAsDouble(argv[10], &height);
+    
+    [[videos objectAtIndex:videoIndex] playAnimation:[NSString stringWithUTF8String:(char *) animation] from:from to:to inDirectory:[NSString stringWithUTF8String:(char *) directory] withSpeed:speed andRepeatCount:repeat withPositionX:posX andY:posY withWidth:width andHeight:height];
+    
+    return NULL;
+}
+
 DEFINE_ANE_FUNCTION(changeOrientation) {
     
     uint32_t stringLength;
@@ -296,7 +335,8 @@ void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext c
         MAP_FUNCTION(displayBitmapData, NULL ),
         MAP_FUNCTION(displayBitmapDataOverlay, NULL ),
         MAP_FUNCTION(removeFirstBitmapData, NULL ),
-        MAP_FUNCTION(removeLatestBitmapData, NULL )
+        MAP_FUNCTION(removeLatestBitmapData, NULL ),
+        MAP_FUNCTION(playAnimation, NULL )
     };
     
     *numFunctionsToSet = sizeof( functionMap ) / sizeof( FRENamedFunction );

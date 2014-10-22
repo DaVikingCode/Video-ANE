@@ -41,6 +41,9 @@ package {
 			// we can display bitmapData on top of the video!
 			_movie.displayBitmapDataOverlay(new logoBitmap().bitmapData, 50, 50, 150, 120);
 			
+			// and even animations!
+			_movie.playAnimation("Sprite-Ancre_%05d", 11, 75, "anims", 1.2, 1, 0, 0, 68, 68);
+			
 			_patch = new PatchRun();
 			
 			_patch.x = stage.fullScreenWidth - _patch.width >> 1;

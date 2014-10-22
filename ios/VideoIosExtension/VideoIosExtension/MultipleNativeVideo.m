@@ -64,6 +64,10 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[_player currentItem]];
     }
     
+    if (imageAnimations != nil) {
+        [imageAnimations stopAnimating];
+    }
+    
     [_player pause];
     
     [self removeFromSuperview];
@@ -149,6 +153,30 @@
 - (void) removeLatestBitmapData {
     
     [[[self subviews] objectAtIndex:[self subviews].count - 1] removeFromSuperview];
+}
+
+- (void) playAnimation:(NSString *) name from:(uint32_t) startFrame to:(uint32_t) endFrame inDirectory:(NSString *) directory withSpeed:(double) speed andRepeatCount:(uint32_t) repeatCount withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height {
+    
+    imageAnimations = [[UIImageView alloc] initWithFrame:CGRectMake(posX, posY, width, height)];
+    
+    NSMutableArray* frames = [[NSMutableArray alloc] init];
+    
+    for (int i = startFrame; i < endFrame; ++i) {
+        
+        [frames addObject:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:name, i] ofType:@"png" inDirectory:directory]]];
+    }
+    
+    imageAnimations.animationImages = frames;
+    
+    imageAnimations.animationDuration = speed;
+    
+    imageAnimations.animationRepeatCount = repeatCount;
+    
+    imageAnimations.image = [imageAnimations.animationImages lastObject];
+    
+    [imageAnimations startAnimating];
+    
+    [self addSubview:imageAnimations];
 }
 
 - (void) changePositionX:(double) posX andY:(double) posY {

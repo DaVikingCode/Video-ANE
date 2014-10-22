@@ -11,6 +11,7 @@ package com.davikingcode.nativeExtensions.video {
 
 		public var extensionContext:ExtensionContext;
 
+		private var _url:String;
 		private var _index:uint;
 		private var _mode:String;
 		private var _x:Number;
@@ -19,10 +20,11 @@ package com.davikingcode.nativeExtensions.video {
 		private var _paused:Boolean = false;
 		private var _volume:Number = 1;
 
-		public function VideoObject(extensionContext:ExtensionContext, index:uint, mode:String, posX:Number, posY:Number) {
+		public function VideoObject(extensionContext:ExtensionContext, url:String, index:uint, mode:String, posX:Number, posY:Number) {
 
 			this.extensionContext = extensionContext;
 
+			_url = url;
 			_index = index;
 			_mode = mode;
 			_x = posX;
@@ -61,6 +63,12 @@ package com.davikingcode.nativeExtensions.video {
 
 			if (extensionContext)
 				extensionContext.call("removeLatestBitmapData", _index);
+		}
+
+		public function playAnimation(animName:String, startFrame:uint, endFrame:uint, directory:String, speed:Number, repeatCount:uint, posX:Number, posY:Number, width:Number, height:Number):void {
+
+			if (extensionContext)
+				extensionContext.call("playAnimation", _index, animName, startFrame, endFrame, directory, speed, repeatCount, posX, posY, width, height);
 		}
 
 		internal function updateIndex(index:uint):void {
@@ -116,6 +124,11 @@ package com.davikingcode.nativeExtensions.video {
 
 			if (extensionContext)
 				extensionContext.call("changeSoundVolume", _index, _volume);
+		}
+
+		public function get url():String {
+
+			return _url;
 		}
 
 		public function get index():uint {

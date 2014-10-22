@@ -21,6 +21,8 @@
     double imageOverlayframeY;
     double imageOverlayWidth;
     double imageOverlayHeight;
+    
+    UIImageView* imageAnimations;
 }
 
 @property (strong, nonatomic) AVPlayer *player;
@@ -37,6 +39,8 @@
 
 - (void) removeFirstBitmapData;
 - (void) removeLatestBitmapData;
+
+- (void) playAnimation:(NSString *) name from:(uint32_t) startFrame to:(uint32_t) endFrame inDirectory:(NSString *) directory withSpeed:(double) speed andRepeatCount:(uint32_t) repeatCount withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height;
 
 - (void) changeOrientation:(NSString *) orientation;
 

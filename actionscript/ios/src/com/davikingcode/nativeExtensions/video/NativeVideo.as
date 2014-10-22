@@ -39,7 +39,7 @@ package com.davikingcode.nativeExtensions.video {
 
 			extensionContext.call("addVideo", url, type, mode, posX, posY, width, height, speedRotation, _stage.orientation);
 
-			var videoObject:VideoObject = new VideoObject(extensionContext, videos.length, mode, posX, posY);
+			var videoObject:VideoObject = new VideoObject(extensionContext, url, videos.length, mode, posX, posY);
 
 			videos.push(videoObject);
 

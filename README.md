@@ -25,6 +25,9 @@ _video.addVideo("videos/sample_iPod", "m4v", VideoObject.MODE_LOOP, _bounds.x, 1
 // we can display bitmapData on top of the video!
 movie.displayBitmapData(new logoBitmap().bitmapData, 50, 50, 150, 120);
 
+// and even animations (be sure to put the pngs in iOS package contents)
+movie.playAnimation("Sprite-Ancre_%05d", 11, 75, "anims", 1.2, 1, 0, 0, 68, 68);
+
 //we can tween video position:
 eaze(movie).to(0.5, {x:mouseX / 2, y:mouseY / 2});
 

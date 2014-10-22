@@ -26,7 +26,7 @@ package com.davikingcode.nativeExtensions.video {
 
 		public function addVideo(url:String, type:String, mode:String, posX:Number = 0, posY:Number = 0, width:Number = 320, height:Number = 480, speedRotation:Number = 0.55):VideoObject {
 
-			var videoObject:VideoObject = new VideoObject(null, videos.length, mode, posX, posY);
+			var videoObject:VideoObject = new VideoObject(null, url, videos.length, mode, posX, posY);
 
 			videos.push(videoObject);
 
