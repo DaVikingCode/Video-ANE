@@ -234,6 +234,26 @@ DEFINE_ANE_FUNCTION(displayBitmapDataOverlay) {
     return NULL;
 }
 
+DEFINE_ANE_FUNCTION(removeFirstBitmapData) {
+    
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
+    [[videos objectAtIndex:videoIndex] removeFirstBitmapData];
+    
+    return NULL;
+}
+
+DEFINE_ANE_FUNCTION(removeLatestBitmapData) {
+    
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
+    [[videos objectAtIndex:videoIndex] removeLatestBitmapData];
+    
+    return NULL;
+}
+
 DEFINE_ANE_FUNCTION(changeOrientation) {
     
     uint32_t stringLength;
@@ -274,7 +294,9 @@ void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext c
         MAP_FUNCTION(changeSoundVolume, NULL),
         MAP_FUNCTION(paused, NULL ),
         MAP_FUNCTION(displayBitmapData, NULL ),
-        MAP_FUNCTION(displayBitmapDataOverlay, NULL )
+        MAP_FUNCTION(displayBitmapDataOverlay, NULL ),
+        MAP_FUNCTION(removeFirstBitmapData, NULL ),
+        MAP_FUNCTION(removeLatestBitmapData, NULL )
     };
     
     *numFunctionsToSet = sizeof( functionMap ) / sizeof( FRENamedFunction );

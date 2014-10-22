@@ -141,6 +141,16 @@
     [self addSubview:imageOverlay];
 }
 
+- (void) removeFirstBitmapData {
+    
+    [[[self subviews] objectAtIndex:0] removeFromSuperview];
+}
+
+- (void) removeLatestBitmapData {
+    
+    [[[self subviews] objectAtIndex:[self subviews].count - 1] removeFromSuperview];
+}
+
 - (void) changePositionX:(double) posX andY:(double) posY {
     
     frameX = posX;

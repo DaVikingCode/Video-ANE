@@ -14,7 +14,7 @@
 		<string>https://github.com/DaVikingCode/Video-ANE.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>ios/VideoIosExtension/VideoIosExtension.xcodeproj/project.xcworkspace</string>
+	<string>ios/VideoIosExtension/VideoIosExtension.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>61D8BF3622A2ED11463EDB25AABD19F2B0CE1E29</key>

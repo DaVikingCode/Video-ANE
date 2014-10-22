@@ -35,6 +35,9 @@
 - (void) displayBitmapData:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height;
 - (void) displayBitmapDataOverlay:(UIImage *) img withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height;
 
+- (void) removeFirstBitmapData;
+- (void) removeLatestBitmapData;
+
 - (void) changeOrientation:(NSString *) orientation;
 
 - (void) destroy;

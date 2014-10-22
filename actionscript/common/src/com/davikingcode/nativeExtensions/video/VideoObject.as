@@ -51,6 +51,18 @@ package com.davikingcode.nativeExtensions.video {
 				extensionContext.call("displayBitmapDataOverlay", _index, bmpd, posX, posY, width, height);
 		}
 
+		public function removeFirstBitmapData():void {
+
+			if (extensionContext)
+				extensionContext.call("removeFirstBitmapData", _index);
+		}
+
+		public function removeLatestBitmapData():void {
+
+			if (extensionContext)
+				extensionContext.call("removeLatestBitmapData", _index);
+		}
+
 		internal function updateIndex(index:uint):void {
 
 			_index = index;
