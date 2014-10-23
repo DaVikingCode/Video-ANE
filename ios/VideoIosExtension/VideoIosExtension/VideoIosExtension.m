@@ -269,6 +269,8 @@ DEFINE_ANE_FUNCTION(playAnimation) {
     
     double speed;
     uint32_t repeat;
+    uint32_t autoStart;
+    uint32_t isOverlay;
     
     double posX;
     double posY;
@@ -283,12 +285,27 @@ DEFINE_ANE_FUNCTION(playAnimation) {
     FREGetObjectAsUTF8(argv[4], &string2Length, &directory);
     FREGetObjectAsDouble(argv[5], &speed);
     FREGetObjectAsUint32(argv[6], &repeat);
-    FREGetObjectAsDouble(argv[7], &posX);
-    FREGetObjectAsDouble(argv[8], &posY);
-    FREGetObjectAsDouble(argv[9], &width);
-    FREGetObjectAsDouble(argv[10], &height);
+    FREGetObjectAsBool(argv[7], &autoStart);
+    FREGetObjectAsBool(argv[8], &isOverlay);
+    FREGetObjectAsDouble(argv[9], &posX);
+    FREGetObjectAsDouble(argv[10], &posY);
+    FREGetObjectAsDouble(argv[11], &width);
+    FREGetObjectAsDouble(argv[12], &height);
     
-    [[videos objectAtIndex:videoIndex] playAnimation:[NSString stringWithUTF8String:(char *) animation] from:from to:to inDirectory:[NSString stringWithUTF8String:(char *) directory] withSpeed:speed andRepeatCount:repeat withPositionX:posX andY:posY withWidth:width andHeight:height];
+    [[videos objectAtIndex:videoIndex] playAnimation:[NSString stringWithUTF8String:(char *) animation] from:from to:to inDirectory:[NSString stringWithUTF8String:(char *) directory] withSpeed:speed andRepeatCount:repeat autoStart:autoStart isOverlay:isOverlay withPositionX:posX andY:posY withWidth:width andHeight:height];
+    
+    return NULL;
+}
+
+DEFINE_ANE_FUNCTION(pausedAnimation) {
+    
+    uint32_t videoIndex;
+    FREGetObjectAsUint32(argv[0], &videoIndex);
+    
+    uint32_t pauseValue;
+    FREGetObjectAsBool(argv[1], &pauseValue);
+    
+    [[videos objectAtIndex:videoIndex] pausedAnimation:pauseValue];
     
     return NULL;
 }
@@ -336,7 +353,8 @@ void VideoContextInitializer(void* extData, const uint8_t* ctxType, FREContext c
         MAP_FUNCTION(displayBitmapDataOverlay, NULL ),
         MAP_FUNCTION(removeFirstBitmapData, NULL ),
         MAP_FUNCTION(removeLatestBitmapData, NULL ),
-        MAP_FUNCTION(playAnimation, NULL )
+        MAP_FUNCTION(playAnimation, NULL ),
+        MAP_FUNCTION(pausedAnimation, NULL )
     };
     
     *numFunctionsToSet = sizeof( functionMap ) / sizeof( FRENamedFunction );

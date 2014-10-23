@@ -53,6 +53,8 @@
         
         [self changeOrientation:iOSorientation];
         
+        imageAnimationsIsOverlay = NO;
+        
     }
     return self;
 }
@@ -155,7 +157,7 @@
     [[[self subviews] objectAtIndex:[self subviews].count - 1] removeFromSuperview];
 }
 
-- (void) playAnimation:(NSString *) name from:(uint32_t) startFrame to:(uint32_t) endFrame inDirectory:(NSString *) directory withSpeed:(double) speed andRepeatCount:(uint32_t) repeatCount withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height {
+- (void) playAnimation:(NSString *) name from:(uint32_t) startFrame to:(uint32_t) endFrame inDirectory:(NSString *) directory withSpeed:(double) speed andRepeatCount:(uint32_t) repeatCount autoStart:(BOOL) autoStart isOverlay:(BOOL) overlay withPositionX:(double) posX andY:(double) posY withWidth:(double) width andHeight:(double) height {
     
     imageAnimations = [[UIImageView alloc] initWithFrame:CGRectMake(posX, posY, width, height)];
     
@@ -174,9 +176,27 @@
     
     imageAnimations.image = [imageAnimations.animationImages lastObject];
     
-    [imageAnimations startAnimating];
+    if (autoStart)
+        [imageAnimations startAnimating];
     
     [self addSubview:imageAnimations];
+    
+    imageAnimationsframeX = posX;
+    imageAnimationsframeY = posY;
+    imageAnimationsWidth = width;
+    imageAnimationsHeight = height;
+    imageAnimationsIsOverlay = overlay;
+}
+
+- (void) pausedAnimation:(BOOL) pauseValue {
+    
+    if (imageAnimations == nil)
+        return;
+    
+    if (pauseValue)
+        [imageAnimations stopAnimating];
+    else
+        [imageAnimations startAnimating];
 }
 
 - (void) changePositionX:(double) posX andY:(double) posY {
@@ -196,10 +216,19 @@
     else if ([iOSorientation isEqualToString:@"rotatedRight"])
         [self.layer setFrame:CGRectMake(-frameY + [[UIScreen mainScreen] bounds].size.width - self.frame.size.width, frameX, self.frame.size.width, self.frame.size.height)];
     
-    if (imageOverlay != nil)
+    if (imageOverlay != nil) {
+        
         imageOverlay.frame = CGRectMake(imageOverlayframeX - posX, imageOverlayframeY - posY, imageOverlayWidth, imageOverlayHeight);
     
-    imageOverlay.alpha = CGRectIntersectsRect(imageOverlay.frame, _playerLayer.frame);
+        imageOverlay.alpha = CGRectIntersectsRect(imageOverlay.frame, _playerLayer.frame);
+    }
+    
+    if (imageAnimations != nil && imageAnimationsIsOverlay) {
+        
+        imageAnimations.frame = CGRectMake(imageAnimationsframeX - posX, imageAnimationsframeY - posY, imageAnimationsWidth, imageAnimationsHeight);
+    
+        imageAnimations.alpha = CGRectIntersectsRect(imageAnimations.frame, _playerLayer.frame);
+    }
 }
 
 - (void) changeOrientation:(NSString *) orientation {

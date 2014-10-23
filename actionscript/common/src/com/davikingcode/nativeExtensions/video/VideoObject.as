@@ -65,10 +65,16 @@ package com.davikingcode.nativeExtensions.video {
 				extensionContext.call("removeLatestBitmapData", _index);
 		}
 
-		public function playAnimation(animName:String, startFrame:uint, endFrame:uint, directory:String, speed:Number, repeatCount:uint, posX:Number, posY:Number, width:Number, height:Number):void {
+		public function playAnimation(animName:String, startFrame:uint, endFrame:uint, directory:String, speed:Number, repeatCount:uint, autoStart:Boolean, isOverlay:Boolean, posX:Number, posY:Number, width:Number, height:Number):void {
 
 			if (extensionContext)
-				extensionContext.call("playAnimation", _index, animName, startFrame, endFrame, directory, speed, repeatCount, posX, posY, width, height);
+				extensionContext.call("playAnimation", _index, animName, startFrame, endFrame, directory, speed, repeatCount, autoStart, isOverlay, posX, posY, width, height);
+		}
+
+		public function pausedAnimation(value:Boolean):void {
+
+			if (extensionContext)
+				extensionContext.call("pausedAnimation", _index, value);
 		}
 
 		internal function updateIndex(index:uint):void {

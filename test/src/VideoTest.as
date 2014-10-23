@@ -42,7 +42,7 @@ package {
 			_movie.displayBitmapDataOverlay(new logoBitmap().bitmapData, 50, 50, 150, 120);
 			
 			// and even animations!
-			_movie.playAnimation("Sprite-Ancre_%05d", 11, 75, "anims", 1.2, 1, 0, 0, 68, 68);
+			_movie.playAnimation("Sprite-Ancre_%05d", 11, 75, "anims", 1.2, 1, true, false, 0, 0, 68, 68);
 			
 			_patch = new PatchRun();
 			
