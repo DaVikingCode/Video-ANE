@@ -12,7 +12,9 @@ The goal of this ANE is to display a video, on top of everything. So let's say i
 
 The movie is [Big Buck Bunny](http://www.bigbuckbunny.org/) and the character comes from the [Citrus Engine](http://citrusengine.com).
 
-```actionscript3
+Note: videos aren't displayed in a retina resolution. This was mostly due for performances (the goal was to have several videos running at the same time).
+
+```as3
 
 _video = new NativeVideo(stage);
 			
